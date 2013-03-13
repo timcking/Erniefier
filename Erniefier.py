@@ -18,7 +18,7 @@ class MyApp(wx.App):
         # self.frame.SetIcon(self.favicon)        
 
         # Bind Controls
-        self.txtSay = xrc.XRCCTRL(self.frame, 'txtSay')
+        self.txtErnie = xrc.XRCCTRL(self.frame, 'txtErnie')
         self.btnAnother = xrc.XRCCTRL(self.frame, 'btnAnother')
         self.btnClose = xrc.XRCCTRL(self.frame, 'wxID_EXIT')
 
@@ -35,7 +35,7 @@ class MyApp(wx.App):
         erniePhrase = self.ernieDict.getPhrase()
         
         full = self.getSaying(erniePhrase)
-        self.txtSay.SetLabel(full)
+        self.txtErnie.SetLabel(full)
     
     def getSaying(self, erniePhrase):
         user = wx.TextEntryDialog(None, "You would say:", "Ernifier", "Good morning.")
