@@ -19,6 +19,7 @@ class MyApp(wx.App):
 
         # Bind Controls
         self.txtErnie = xrc.XRCCTRL(self.frame, 'txtErnie')
+        self.txtYou = xrc.XRCCTRL(self.frame, 'txtYou')
         self.btnAnother = xrc.XRCCTRL(self.frame, 'btnAnother')
         self.btnClose = xrc.XRCCTRL(self.frame, 'wxID_EXIT')
 
@@ -27,26 +28,23 @@ class MyApp(wx.App):
         self.frame.Bind(wx.EVT_CLOSE, self.OnExitApp)
         self.btnAnother.Bind(wx.EVT_BUTTON, self.OnBtnAnotherButton, id=xrc.XRCID('btnAnother'))
         
+        self.ernieDict = ErnieDict()
         self.getErnie()
         self.frame.Show()
 
     def getErnie(self):
-        self.ernieDict = ErnieDict()
         erniePhrase = self.ernieDict.getPhrase()
-        
         full = self.getSaying(erniePhrase)
-        self.txtErnie.SetLabel(full)
+        self.txtErnie.SetValue(full)
     
     def getSaying(self, erniePhrase):
-        user = wx.TextEntryDialog(None, "You would say:", "Ernifier", "Good morning.")
-        if user.ShowModal() == wx.ID_OK:
-            user.Destroy()
-            stmt = user.GetValue()
-            if stmt.endswith('.'):
-                ernie = stmt.rstrip('.') + erniePhrase
-            else:
-                ernie = stmt + erniePhrase
-            return ernie
+        stmt = self.txtYou.GetValue()
+        if stmt.endswith('.'):
+            ernie = stmt.rstrip('.') + erniePhrase
+        else:
+            ernie = stmt + erniePhrase
+            
+        return ernie
              
     def OnBtnAnotherButton(self, event):
         self.getErnie()
